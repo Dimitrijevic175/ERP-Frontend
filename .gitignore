@@ -1,0 +1,49 @@
+# --- SISTEMSKI FAJLOVI ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- ZAVISNOSTI (DEPENDENCIES) ---
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# --- BUILD I OUTPUT ---
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# --- LOGOVI ---
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- ENVIRONMENTAL VARIABLES  ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env.bak
+
+# --- EDITOR SPECIFIČNO ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- TESTIRANJE ---
+coverage/
+.nyc_output/

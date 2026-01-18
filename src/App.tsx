@@ -10,7 +10,6 @@ function App() {
                 <h1 className="text-3xl font-bold italic tracking-tight uppercase">
                     ERP System
                 </h1>
-
                 <div className="flex gap-4">
                     <Button variant="default">Main Button</Button>
                     <Button variant="outline">Logs</Button>

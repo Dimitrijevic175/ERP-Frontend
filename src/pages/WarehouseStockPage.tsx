@@ -12,20 +12,19 @@ import {
     TableHead,
     TableCell,
 } from "@/components/ui/table" // ShadCN DataTable
-import { useLocation } from "react-router-dom"
+
 
 interface Props {
     warehouseId: number
     warehouseName: string
 }
 
-export default function WarehouseStockPage({ warehouseId }: Props) {
+export default function WarehouseStockPage({ warehouseId, warehouseName }: Props) {
     const [stock, setStock] = useState<WarehouseStockWithProduct[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 
-    const location = useLocation()
-    const warehouseName = (location.state)?.warehouseName || "Warehouse"
+
 
 
     useEffect(() => {

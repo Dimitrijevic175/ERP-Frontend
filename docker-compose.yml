@@ -1,0 +1,6 @@
+services:
+  erp-ui:
+    build: .
+    container_name: erp-frontend
+    ports:
+      - "3000:80"

@@ -1,73 +1,116 @@
-# React + TypeScript + Vite
+# ERP Frontend System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the client-side application for the **ERP Microservices System**. It provides a modern and responsive user interface for managing users, products, warehouses, and sales.
 
-Currently, two official plugins are available:
+The application is built with **React 19**, **TypeScript**, and **Vite**, and is fully containerized using **Docker** and **Nginx**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Technologies & Tools
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Library:** React 19
+* **Language:** TypeScript
+* **Build Tool:** Vite 7
+* **Styling:** Tailwind CSS v4 & ShadCN UI
+* **Routing:** React Router 7
+* **API Client:** Axios
+* **Containerization:** Docker & Nginx (Production-ready)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architecture Overview
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The frontend acts as a standalone service that communicates with backend microservices and is served via a high-performance **Nginx** web server.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Feature          | Description                             |
+| ---------------- | --------------------------------------- |
+| User Interface   | Dashboard for managing ERP entities     |
+| State Management | React Hooks & Local State               |
+| API Integration  | Direct communication with microservices |
+| Deployment       | Multi-stage Docker build                |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started (Local Setup)
+
+### Prerequisites
+
+Before running the application, make sure you have the following installed:
+
+1. **Git** – [https://git-scm.com/](https://git-scm.com/)
+2. **Docker Desktop** – [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+
+---
+
+## Installation & Execution
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Dimitrijevic175/ERP-Frontend.git
+cd ERP-Frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Environment Configuration
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Create a `.env` file in the project root directory (where `package.json` is located) and add the following backend service URLs:
+
+```env
+VITE_USER_API_BASE_URL=http://localhost:8080
+VITE_PRODUCT_API_BASE_URL=http://localhost:8081
+VITE_PROCUREMENT_API_BASE_URL=http://localhost:8082
+VITE_SALES_API_BASE_URL=http://localhost:8083
+VITE_WAREHOUSE_API_BASE_URL=http://localhost:8084
 ```
+
+> Make sure that the backend system is running before starting the frontend.
+
+---
+
+### 3. Launch with Docker
+
+Run the following command from the project root directory:
+
+```bash
+docker-compose up --build
+```
+
+This command will:
+
+* Install dependencies
+* Perform TypeScript checks
+* Build static assets
+* Serve the application using Nginx
+
+---
+
+### 4. Access the Application
+
+Once the container is running, open your browser at:
+
+```
+http://localhost:3000
+```
+
+## Backend Integration
+
+The frontend requires the ERP Backend System to be running.
+
+Make sure all backend microservices are available so that API requests can be resolved correctly.
+
+Recommended startup order:
+
+1. Start ERP Backend System
+2. Start ERP Frontend System
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this software in accordance with the terms of the MIT License.
+
+See the `LICENSE` file for more details.

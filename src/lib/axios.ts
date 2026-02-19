@@ -7,6 +7,20 @@ export const userApi = axios.create({
     },
 })
 
+export const salesApi = axios.create({
+    baseURL: import.meta.env.VITE_SALES_API_BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+
+export const procurementApi = axios.create({
+    baseURL: import.meta.env.VITE_PROCUREMENT_API_BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+
 export const warehouseApi = axios.create({
     baseURL: import.meta.env.VITE_WAREHOUSE_API_BASE_URL,
     headers: {

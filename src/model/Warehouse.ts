@@ -15,3 +15,12 @@ export interface WarehouseStockDto {
 export interface WarehouseStockWithProduct extends WarehouseStockDto {
     product: ProductResponse
 }
+
+export interface LowStockItemDto {
+    warehouseStockId: number
+    productId: number
+    quantity: number
+    minQuantity: number
+    warehouseId: number
+    warehouseName: string
+}

@@ -23,6 +23,7 @@ export default function SalesPage() {
     const [totalPages, setTotalPages] = useState<number>(0)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
+    const [fade, setFade] = useState(false)
 
     const updatePageInUrl = (p: number) => {
         setSearchParams({ page: String(p) })
@@ -50,6 +51,8 @@ export default function SalesPage() {
         if (!isNaN(pageFromUrl) && pageFromUrl >= 0) {
             setPage(pageFromUrl)
         }
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
     }, [])
 
     useEffect(() => {
@@ -61,7 +64,13 @@ export default function SalesPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-4">
-            <h1 className="text-2xl font-bold">Sales Orders</h1>
+            <h1
+                className={`text-2xl font-bold transition-opacity duration-1000 ${
+                    fade ? "opacity-100" : "opacity-0"
+                }`}
+            >
+                Sales Orders
+            </h1>
 
             {loading && <p className="text-muted-foreground">Loading...</p>}
             {error && <p className="text-destructive">{error}</p>}
@@ -74,12 +83,12 @@ export default function SalesPage() {
                 orders.map((order) => (
                     <Card
                         key={order.id}
-                        className="cursor-pointer hover:shadow-md transition"
+                        className="cursor-pointer hover:shadow-md dark:hover:shadow-white/20 transition"
                         onClick={() => navigate(`/sales/${order.id}`)}
                     >
                         <CardContent className="flex justify-between items-center p-6">
                             <div>
-                                <h2 className="font-semibold text-lg">
+                                <h2 className="font-semibold text-lg ">
                                     Sales Order #{order.id}
                                 </h2>
 

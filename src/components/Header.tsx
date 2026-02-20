@@ -33,9 +33,12 @@ export default function Header() {
             </div>
 
             <div
-                className="text-xl font-bold tracking-tight cursor-pointer hover:text-primary/80 hover:bg-muted rounded-md
-                            px-2 py-1 hover:scale-105 transition-all duration-200 "
-                onClick={() => navigate("/landing-page")}
+                className={`text-xl font-bold tracking-tight rounded-md px-2 py-1 transition-all duration-200
+                ${!isLoginPage
+                    ? "cursor-pointer hover:text-primary/80 hover:bg-muted hover:scale-105"
+                    : "cursor-default opacity-70"
+                }`}
+                onClick={!isLoginPage ? () => navigate("/landing-page") : undefined}
             >
                 ERP System
             </div>

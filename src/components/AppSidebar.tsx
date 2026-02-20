@@ -30,6 +30,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useEffect, useState } from "react"
 
 const items = [
     { title: "Products", path: "/products", icon: Box },
@@ -43,11 +44,24 @@ const items = [
 export function AppSidebar() {
     const navigate = useNavigate()
 
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: ""
+    })
+
     const handleLogout = () => {
         localStorage.clear()
         navigate("/login")
     }
 
+    useEffect(() => {
+        const firstName = localStorage.getItem("firstName") || ""
+        const lastName = localStorage.getItem("lastName") || ""
+        const email = localStorage.getItem("email") || ""
+
+        setUser({ firstName, lastName, email })
+    }, [])
 
     return (
         <Sidebar
@@ -114,8 +128,12 @@ export function AppSidebar() {
                                         <User className="size-4 text-background" />
                                     </div>
                                     <div className="grid flex-1 text-left text-sm leading-tight group-data-[state=collapsed]:hidden">
-                                        <span className="truncate font-bold">Maksim Dimitrijevic</span>
-                                        <span className="truncate text-[11px] text-muted-foreground font-medium italic">maksim@example.com</span>
+                                    <span className="truncate font-bold">
+                                        {user.firstName} {user.lastName}
+                                    </span>
+                                        <span className="truncate text-[11px] text-muted-foreground font-medium italic">
+                                        {user.email}
+                                    </span>
                                     </div>
                                     <ChevronUp className="ml-auto size-4 group-data-[state=collapsed]:hidden opacity-50" />
                                 </SidebarMenuButton>
@@ -131,7 +149,7 @@ export function AppSidebar() {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem className="cursor-pointer">
                                     <Settings className="mr-2 size-4" />
-                                    <span>Settings</span>
+                                    <span>Change password</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className="text-destructive cursor-pointer"

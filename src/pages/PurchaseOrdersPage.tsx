@@ -24,6 +24,8 @@ export default function PurchaseOrdersPage() {
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
+    const [fade, setFade] = useState(false)
+
 
     // Kad se page promeni, update query param
     const updatePageInUrl = (p: number) => {
@@ -50,6 +52,8 @@ export default function PurchaseOrdersPage() {
         if (!isNaN(pageFromUrl) && pageFromUrl >= 0) {
             setPage(pageFromUrl)
         }
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
     }, [])
 
     useEffect(() => {
@@ -64,7 +68,13 @@ export default function PurchaseOrdersPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-4">
-            <h1 className="text-2xl font-bold">Purchase Orders</h1>
+            <h1
+                className={`text-2xl font-bold transition-opacity duration-1000 ${
+                    fade ? "opacity-100" : "opacity-0"
+                }`}
+            >
+                Purchase Orders
+            </h1>
 
             {loading && <p className="text-center py-10 text-muted-foreground">Loading...</p>}
             {error && <p className="text-center py-10 text-destructive">{error}</p>}
@@ -77,7 +87,7 @@ export default function PurchaseOrdersPage() {
                     {orders.map((order) => (
                         <Card
                             key={order.id}
-                            className="cursor-pointer hover:shadow-md transition-all"
+                            className="cursor-pointer hover:shadow-md dark:hover:shadow-white/20 transition-all"
                             onClick={() => navigate(`/purchase-orders/${order.id}`)}
                         >
                             <CardContent className="flex justify-between items-center p-6">

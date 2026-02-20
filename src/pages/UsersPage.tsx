@@ -44,6 +44,8 @@ export default function UsersPage() {
     const [page, setPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
 
+    const [fade, setFade] = useState(false)
+
     const [filters, setFilters] = useState({
         email: "",
         roleName: "",
@@ -90,6 +92,8 @@ export default function UsersPage() {
 
     useEffect(() => {
         fetchRoles()
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
     }, [])
 
     const handleSearch = () => {
@@ -103,7 +107,13 @@ export default function UsersPage() {
         <div className="w-full max-w-[1600px] mx-auto">
             {/* HEADER */}
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">Users</h1>
+                <h1
+                    className={`text-2xl font-bold transition-opacity duration-1000 ${
+                        fade ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    Users
+                </h1>
             </div>
 
             {/* FILTERS */}

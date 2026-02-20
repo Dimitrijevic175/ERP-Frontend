@@ -42,6 +42,7 @@ export default function ProductsPage() {
         priceMax: "",
         active: "",
     })
+    const [fade, setFade] = useState(false)
 
     const fetchProducts = async () => {
         setLoading(true)
@@ -76,6 +77,11 @@ export default function ProductsPage() {
         fetchProducts()
     }, [page])
 
+    useEffect(() => {
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
+    }, []);
+
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters({ ...filters, [e.target.name]: e.target.value })
     }
@@ -92,7 +98,13 @@ export default function ProductsPage() {
         <div className="w-full max-w-[1600px] mx-auto">
             {/* HEADER */}
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">Products</h1>
+                <h1
+                    className={`text-2xl font-bold transition-opacity duration-1000 ${
+                        fade ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    Products
+                </h1>
             </div>
 
             {/* FILTER */}

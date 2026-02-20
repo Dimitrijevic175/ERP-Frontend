@@ -71,6 +71,7 @@ export default function WarehousePage() {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+    const [fade, setFade] = useState(false)
 
     useEffect(() => {
         const fetchWarehouses = async () => {
@@ -87,16 +88,27 @@ export default function WarehousePage() {
         fetchWarehouses()
     }, [])
 
+    useEffect(() => {
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
+    }, []);
+
     return (
         <div className="w-full max-w-[1600px] mx-auto p-6 transition-all duration-300">
-            <h1 className="text-2xl font-bold mb-6">Warehouses</h1>
+            <h1
+                className={`text-2xl font-bold transition-opacity duration-1000 mb-6 ${
+                    fade ? "opacity-100" : "opacity-0"
+                }`}
+            >
+                Warehouses
+            </h1>
 
             {loading && <p className="text-center py-10">Loading...</p>}
             {error && <p className="text-destructive text-center py-10">{error}</p>}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {warehouses.map((warehouse) => (
-                    <Card key={warehouse.id} className=" cursor-pointer hover:shadow-lg transition-all border-border/50 ">
+                    <Card key={warehouse.id} className=" cursor-pointer hover:shadow-lg dark:hover:shadow-white/20 transition-all border-border/50 ">
                         <CardHeader>
                             <CardTitle className="text-lg">{warehouse.name}</CardTitle>
                             <CardDescription className="line-clamp-1">{warehouse.location}</CardDescription>

@@ -38,6 +38,8 @@ export default function WarehouseStockPage({ warehouseId, warehouseName }: Props
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [lowStockMode, setLowStockMode] = useState(false)
+    const [fade, setFade] = useState(false)
+
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(0)
@@ -103,6 +105,11 @@ export default function WarehouseStockPage({ warehouseId, warehouseName }: Props
         fetchFullStock()
     }, [warehouseId])
 
+    useEffect(() => {
+        const timer = setTimeout(() => setFade(true), 50)
+        return () => clearTimeout(timer)
+    }, []);
+
     // Slicing stock for current page
     const displayedStock = stock.slice(
         currentPage * pageSize,
@@ -112,7 +119,13 @@ export default function WarehouseStockPage({ warehouseId, warehouseName }: Props
     return (
         <div className="w-full max-w-[1600px] mx-auto">
             <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">{warehouseName}</h1>
+                <h1
+                    className={`text-2xl font-bold transition-opacity duration-1000 ${
+                        fade ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    {warehouseName}
+                </h1>
 
                 <Button
                     variant={lowStockMode ? "outline" : "destructive"}

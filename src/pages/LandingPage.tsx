@@ -33,7 +33,7 @@ export default function LandingPage() {
                     fade ? "opacity-100" : "opacity-0"
                 }`}
             >
-                <Card className="hover:shadow-lg transition">
+                <Card className="hover:shadow-lg dark:hover:shadow-white/20 transition">
                     <CardHeader>
                         <CardTitle>Sales</CardTitle>
                     </CardHeader>
@@ -46,7 +46,7 @@ export default function LandingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition">
+                <Card className="hover:shadow-lg dark:hover:shadow-white/20 transition">
                     <CardHeader>
                         <CardTitle>Procurement</CardTitle>
                     </CardHeader>
@@ -59,7 +59,7 @@ export default function LandingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition">
+                <Card className="hover:shadow-lg dark:hover:shadow-white/20 transition">
                     <CardHeader>
                         <CardTitle>Inventory</CardTitle>
                     </CardHeader>
@@ -89,6 +89,16 @@ export default function LandingPage() {
                         (window.location.href =
                             "mailto:maksimdimitrijevic@gmail.com?subject=Contact%20ERP&body=Hello,%20I%20would%20like%20to%20know%20more%20about%20ERP%20System.")
                     }
+                    className="
+        bg-gradient-to-br from-purple-600 to-pink-500
+        hover:from-purple-700 hover:to-pink-600
+        transition-all duration-300 ease-in-out
+        hover:scale-105
+        hover:shadow-lg hover:shadow-pink-500/40
+        cursor-pointer
+        text-foreground
+    "
+
                 >
                     Contact us
                 </Button>

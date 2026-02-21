@@ -41,7 +41,7 @@ export default function LandingPage() {
                         <p>
                             Manage all sales orders, track statuses, and generate reports.
                         </p>
-                        <Badge variant="secondary">Fast</Badge>
+                        <Badge variant="secondary" className="mr-2">Fast</Badge>
                         <Badge variant="secondary">Transparent</Badge>
                     </CardContent>
                 </Card>
@@ -54,7 +54,7 @@ export default function LandingPage() {
                         <p>
                             Create and monitor purchase orders, manage suppliers, and track items.
                         </p>
-                        <Badge variant="secondary">Efficient</Badge>
+                        <Badge variant="secondary" className="mr-2">Efficient</Badge>
                         <Badge variant="secondary">Reliable</Badge>
                     </CardContent>
                 </Card>
@@ -67,7 +67,7 @@ export default function LandingPage() {
                         <p>
                             View warehouse stock levels and receive alerts for low inventory.
                         </p>
-                        <Badge variant="secondary">Accurate</Badge>
+                        <Badge variant="secondary" className="mr-2">Accurate</Badge>
                         <Badge variant="secondary">Control</Badge>
                     </CardContent>
                 </Card>

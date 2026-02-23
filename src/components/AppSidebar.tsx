@@ -143,11 +143,18 @@ export function AppSidebar() {
                                 align="end"
                                 className="w-56 font-sans shadow-xl border-border"
                             >
-                                <DropdownMenuItem className="cursor-pointer">
+                                <DropdownMenuItem
+                                    className="cursor-pointer"
+                                    onClick={() => navigate("/account")}
+
+                                >
                                     <User className="mr-2 size-4" />
                                     <span>Account</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="cursor-pointer">
+                                <DropdownMenuItem
+                                    className="cursor-pointer"
+                                    onClick={() => navigate("/change-password")}
+                                >
                                     <Settings className="mr-2 size-4" />
                                     <span>Change password</span>
                                 </DropdownMenuItem>

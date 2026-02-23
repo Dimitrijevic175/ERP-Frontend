@@ -9,6 +9,8 @@ import SalesDetailPage from "@/pages/SalesDetailPage"
 import PurchaseOrdersPage from "@/pages/PurchaseOrdersPage.tsx";
 import PurchaseOrderDetailPage from "@/pages/PurchaseOrderDetailPage.tsx";
 import LandingPage from "@/pages/LandingPage"
+import ChangePasswordPage from "@/pages/ChangePasswordPage";
+import AccountPage from "@/pages/AccountPage.tsx";
 
 export default function AppRoutes() {
     return (
@@ -24,6 +26,8 @@ export default function AppRoutes() {
             <Route path="/sales/:id" element={<SalesDetailPage />} />
             <Route path="/purchase-orders" element={<PurchaseOrdersPage />} />
             <Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
+            <Route path="/account" element={<AccountPage />} />
         </Routes>
     )
 }

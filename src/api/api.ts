@@ -51,6 +51,31 @@ export const getRoles = async (): Promise<RoleResponse[]> => {
     const response = await userApi.get(`/role`)
     return response.data
 }
+
+export const verifyPassword = async (
+    userId: number,
+    oldPassword: string
+): Promise<void> => {
+    await userApi.put(`/user/${userId}/verify-password`, {
+        oldPassword,
+    })
+}
+
+export const getUserById = async (userId: number): Promise<UserResponse> => {
+    const response = await userApi.get(`/user/${userId}`);
+    return response.data;
+}
+
+export const changePassword = async (
+    userId: number,
+    newPassword: string
+): Promise<UserResponse> => {
+    const response = await userApi.put(`/user/${userId}/password`, {
+        newPassword,
+    })
+    return response.data
+}
+
 // ---> SALES SERVIS <---
 export const getSalesOrders = async (params: {
     page: number

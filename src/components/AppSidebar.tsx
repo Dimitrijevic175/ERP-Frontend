@@ -43,6 +43,7 @@ const items = [
 
 export function AppSidebar() {
     const navigate = useNavigate()
+    const role = localStorage.getItem("role");
 
     const [user, setUser] = useState({
         firstName: "",
@@ -96,19 +97,27 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <SidebarGroupLabel className="group-data-[state=collapsed]:hidden px-2">Platform</SidebarGroupLabel>
                     <SidebarMenu>
-                        {items.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton asChild tooltip={item.title}>
-                                    <button
-                                        onClick={() => navigate(item.path)}
-                                        className="flex items-center gap-3 w-full py-5 text-left"
-                                    >
-                                        <item.icon className="size-5" />
-                                        <span className="font-medium">{item.title}</span>
-                                    </button>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        ))}
+                        {items.map((item) => {
+                            const isUsers = item.title === "Users";
+                            const isDisabled = isUsers && role !== "ADMIN";
+
+                            return (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton className="cursor-pointer"  asChild tooltip={item.title}>
+                                        <button
+                                            onClick={() => !isDisabled && navigate(item.path)}
+                                            disabled={isDisabled}
+                                            className={`flex items-center gap-3 w-full py-5 text-left ${
+                                                isDisabled ? "opacity-50 cursor-not-allowed" : ""
+                                            }`}
+                                        >
+                                            <item.icon className="size-5" />
+                                            <span className="font-medium">{item.title}</span>
+                                        </button>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            );
+                        })}
                     </SidebarMenu>
                 </SidebarGroup>
 

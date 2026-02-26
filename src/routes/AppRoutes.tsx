@@ -11,6 +11,8 @@ import PurchaseOrderDetailPage from "@/pages/PurchaseOrderDetailPage.tsx";
 import LandingPage from "@/pages/LandingPage"
 import ChangePasswordPage from "@/pages/ChangePasswordPage";
 import AccountPage from "@/pages/AccountPage.tsx";
+import {ProtectedRoute} from "@/routes/ProtectedRoute.tsx";
+import NoAccessPage from "@/pages/NoAccessPage.tsx";
 
 export default function AppRoutes() {
     return (
@@ -21,13 +23,21 @@ export default function AppRoutes() {
             <Route path="/warehouses" element={<WarehousePage />} />
             <Route path="/warehouse/:id/stock" element={<WarehouseStockPageWrapper />} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/users" element={<UsersPage />} />
+            <Route
+                path="/users"
+                element={
+                    <ProtectedRoute roles={["ADMIN"]}>
+                        <UsersPage />
+                    </ProtectedRoute>
+                }
+            />
             <Route path="/sales" element={<SalesPage />} />
             <Route path="/sales/:id" element={<SalesDetailPage />} />
             <Route path="/purchase-orders" element={<PurchaseOrdersPage />} />
             <Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/no-access" element={<NoAccessPage />} />
         </Routes>
     )
 }

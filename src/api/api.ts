@@ -76,6 +76,24 @@ export const changePassword = async (
     return response.data
 }
 
+export const deleteUser = async (userId: number): Promise<void> => {
+    await userApi.delete(`/user/${userId}`);
+}
+
+// ---> USER SERVIS <---
+export const updateUser = async (
+    userId: number,
+    data: {
+        email: string
+        firstName: string
+        lastName: string
+        roleName: string
+        active: boolean
+    }
+): Promise<void> => {
+    await userApi.put(`/user/${userId}`, data)
+}
+
 // ---> SALES SERVIS <---
 export const getSalesOrders = async (params: {
     page: number
@@ -98,11 +116,22 @@ export const getPurchaseOrder = async (id: number): Promise<PurchaseOrder> => {
 }
 
 // ---> INTERCEPTOR <---
-userApi.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token")
-    if (token) {
-        config.headers = new AxiosHeaders(config.headers)
-        config.headers.set("Authorization", `Bearer ${token}`)
-    }
-    return config
-})
+
+const apis = [userApi, productApi, warehouseApi, salesApi, procurementApi];
+
+apis.forEach((api) => {
+    api.interceptors.request.use((config) => {
+        const token = localStorage.getItem("token");
+
+        if (config.url?.includes("/login")) {
+            return config;
+        }
+
+        if (token) {
+            config.headers = new AxiosHeaders(config.headers);
+            config.headers.set("Authorization", `Bearer ${token}`);
+        }
+
+        return config;
+    });
+});

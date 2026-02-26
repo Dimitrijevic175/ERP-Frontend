@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import { getPurchaseOrders } from "@/api/api.ts"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 import type { PurchaseOrder, PurchaseOrderItem } from "@/model/PurchaseOrder.ts"
 import type { PageResponse } from "@/model/Product.ts"
@@ -68,13 +70,23 @@ export default function PurchaseOrdersPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-4">
-            <h1
-                className={`text-2xl font-bold transition-opacity duration-1000 ${
+            <div
+                className={`flex items-center justify-between transition-opacity duration-1000 ${
                     fade ? "opacity-100" : "opacity-0"
                 }`}
             >
-                Purchase Orders
-            </h1>
+                <h1 className="text-2xl font-bold">
+                    Purchase Orders
+                </h1>
+
+                <Button
+                    onClick={() => navigate("/purchase-orders/new")}
+                    className="gap-2 font-semibold cursor-pointer"
+                >
+                    <Plus className="h-4 w-4" />
+                    New Purchase Order
+                </Button>
+            </div>
 
             {loading && <p className="text-center py-10 text-muted-foreground">Loading...</p>}
             {error && <p className="text-center py-10 text-destructive">{error}</p>}

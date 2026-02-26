@@ -34,6 +34,25 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 
+import { MoreHorizontal, Trash2, Edit2 } from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+} from "@/components/ui/dropdown-menu"
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogAction,
+    AlertDialogCancel,
+} from "@/components/ui/alert-dialog"
+import { deleteUser } from "@/api/api"
+import UserUpdateDialog from "@/components/UserUpdateDialog.tsx";
+
 export default function UsersPage() {
     const [users, setUsers] = useState<UserResponse[]>([])
     const [roles, setRoles] = useState<RoleResponse[]>([])
@@ -45,6 +64,10 @@ export default function UsersPage() {
     const [totalPages, setTotalPages] = useState(0)
 
     const [fade, setFade] = useState(false)
+
+    const [openDialog, setOpenDialog] = useState(false)
+    const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
+    const [selectedUser, setSelectedUser] = useState<UserResponse | null>(null)
 
     const [filters, setFilters] = useState({
         email: "",
@@ -140,9 +163,9 @@ export default function UsersPage() {
                             <SelectValue placeholder="All roles" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem className="cursor-pointer" value="all">All</SelectItem>
                             {roles.map((role) => (
-                                <SelectItem key={role.id} value={role.name}>
+                                <SelectItem className="cursor-pointer" key={role.id} value={role.name}>
                                     {role.name}
                                 </SelectItem>
                             ))}
@@ -210,10 +233,84 @@ export default function UsersPage() {
                                                         </span>
                                                     )}
                                                 </TableCell>
+                                                {localStorage.getItem("role") === "ADMIN" && (
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <button className="p-1 rounded cursor-pointer">
+                                                                    <MoreHorizontal className="w-5 h-5" />
+                                                                </button>
+                                                            </DropdownMenuTrigger>
+
+                                                            <DropdownMenuContent align="end" className="w-40">
+                                                                <DropdownMenuItem
+                                                                    className="flex items-center gap-2 cursor-pointer"
+                                                                    onClick={() => {
+                                                                        setSelectedUser(user)
+                                                                        setOpenUpdateDialog(true)
+                                                                    }}
+                                                                >
+                                                                    <Edit2 className="w-4 h-4" />
+                                                                    Update
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuItem
+                                                                    className="flex items-center gap-2 text-destructive cursor-pointer"
+                                                                    onClick={() => {
+                                                                        setSelectedUser(user)
+                                                                        setOpenDialog(true)
+                                                                    }}
+                                                                >
+                                                                    <Trash2 className="w-4 h-4" />
+                                                                    Delete
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                )}
                                             </TableRow>
                                         ))}
                                     </TableBody>
                                 </Table>
+
+                                <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Delete user?</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                Are you sure you want to delete{" "}
+                                                <strong>{selectedUser?.firstName} {selectedUser?.lastName}</strong>? This action cannot be undone.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <div className="flex justify-end gap-2 mt-4">
+                                            <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                                            <AlertDialogAction
+                                                className="bg-destructive cursor-pointer text-background hover:bg-destructive/50 focus:bg-destructive/80 transition-colors duration-200"
+                                                onClick={async () => {
+                                                    if (!selectedUser) return
+                                                    try {
+                                                        await deleteUser(selectedUser.id)
+                                                        fetchUsers()
+                                                        setOpenDialog(false)
+                                                    } catch (err) {
+                                                        console.error("Failed to delete user", err)
+                                                    }
+                                                }}
+                                            >
+                                                Delete
+                                            </AlertDialogAction>
+                                        </div>
+                                    </AlertDialogContent>
+                                </AlertDialog>
+
+                                {selectedUser && (
+                                    <UserUpdateDialog
+                                        user={selectedUser}
+                                        open={openUpdateDialog}
+                                        onOpenChange={setOpenUpdateDialog}
+                                        onUpdate={fetchUsers}
+                                    />
+                                )}
+
                             </div>
 
                             {/* SHADCN PAGINATION */}

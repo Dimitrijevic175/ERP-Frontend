@@ -1,18 +1,20 @@
 import {Routes, Route, Navigate, useParams, useLocation} from "react-router-dom"
-import Login from "@/pages/LoginPage.tsx"
-import WarehousePage from "@/pages/WarehousePage.tsx";
-import WarehouseStockPage from "@/pages/WarehouseStockPage.tsx";
-import ProductsPage from "@/pages/ProductPage.tsx"
-import UsersPage from "@/pages/UsersPage"
-import SalesPage from "@/pages/SalesPage"
-import SalesDetailPage from "@/pages/SalesDetailPage"
-import PurchaseOrdersPage from "@/pages/PurchaseOrdersPage.tsx";
-import PurchaseOrderDetailPage from "@/pages/PurchaseOrderDetailPage.tsx";
-import LandingPage from "@/pages/LandingPage"
-import ChangePasswordPage from "@/pages/ChangePasswordPage";
-import AccountPage from "@/pages/AccountPage.tsx";
+import Login from "@/pages/login/LoginPage.tsx"
+import WarehousePage from "@/pages/warehouse/WarehousePage.tsx";
+import WarehouseStockPage from "@/pages/warehouse/WarehouseStockPage.tsx";
+import ProductsPage from "@/pages/product/ProductPage.tsx"
+import UsersPage from "@/pages/users/UsersPage.tsx"
+import SalesPage from "@/pages/sales/SalesPage.tsx"
+import SalesDetailPage from "@/pages/sales/SalesDetailPage.tsx"
+import PurchaseOrdersPage from "@/pages/purchaseOrder/PurchaseOrdersPage.tsx";
+import PurchaseOrderDetailPage from "@/pages/purchaseOrder/PurchaseOrderDetailPage.tsx";
+import LandingPage from "@/pages/landing/LandingPage.tsx"
+import ChangePasswordPage from "@/pages/settings/ChangePasswordPage.tsx";
+import AccountPage from "@/pages/settings/AccountPage.tsx";
 import {ProtectedRoute} from "@/routes/ProtectedRoute.tsx";
-import NoAccessPage from "@/pages/NoAccessPage.tsx";
+import NoAccessPage from "@/pages/noAccess/NoAccessPage.tsx";
+import CreatePurchaseOrderPage from "@/pages/purchaseOrder/CreatePurchaseOrderPage.tsx";
+import SubmitPurchaseOrderPage from "@/pages/purchaseOrder/SubmitPurchaseOrderPage.tsx";
 
 export default function AppRoutes() {
     return (
@@ -38,6 +40,8 @@ export default function AppRoutes() {
             <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/no-access" element={<NoAccessPage />} />
+            <Route path="/purchase-orders/new" element={<CreatePurchaseOrderPage />} />
+            <Route path="/purchase-orders/submit/:id" element={<SubmitPurchaseOrderPage />} />
         </Routes>
     )
 }

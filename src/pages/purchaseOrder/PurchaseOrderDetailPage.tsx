@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react"
-import { useParams } from "react-router-dom"
 import { getPurchaseOrders } from "@/api/api.ts"
 import type { PurchaseOrder, PurchaseOrderItem } from "@/model/PurchaseOrder.ts"
 import {
@@ -9,14 +8,17 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/table.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
+import { useParams, useNavigate } from "react-router-dom"
+import {Button} from "@/components/ui/button.tsx";
 
 export default function PurchaseOrderDetailPage() {
     const { id } = useParams<{ id: string }>()
     const [order, setOrder] = useState<PurchaseOrder | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
+    const navigate = useNavigate()
 
     const fetchOrder = useCallback(async () => {
         if (!id) return
@@ -58,21 +60,36 @@ export default function PurchaseOrderDetailPage() {
     return (
         <div className="max-w-6xl mx-auto space-y-6">
             {/* HEADER */}
-            <div>
-                <h1 className="text-2xl font-bold">
-                    Purchase Order #{order.id}
-                </h1>
+            <div className="flex justify-between items-start">
+                {/* LEVI DEO: naslov + status + total */}
+                <div>
+                    <h1 className="text-2xl font-bold">
+                        Purchase Order #{order.id}
+                    </h1>
 
-                <div className="flex gap-4 items-center mt-2">
-                    <Badge>{order.status}</Badge>
-                    <span className="font-semibold text-lg">
-                        € {calculateTotal(order.items).toFixed(2)}
-                    </span>
+                    <div className="flex gap-4 items-center mt-2">
+                        <Badge>{order.status}</Badge>
+                        <span className="font-semibold text-lg">
+                            € {calculateTotal(order.items).toFixed(2)}
+                         </span>
+                    </div>
+
+                    <p className="text-muted-foreground mt-2">
+                        Created: {new Date(order.createdAt).toLocaleString()}
+                    </p>
                 </div>
 
-                <p className="text-muted-foreground mt-2">
-                    Created: {new Date(order.createdAt).toLocaleString()}
-                </p>
+                {/* DESNI DEO: Submit dugme */}
+                {order.status === "DRAFT" && (
+                    <Button
+                        onClick={() =>
+                            navigate(`/purchase-orders/submit/${order.id}`)
+                        }
+                        className="mt-15 cursor-pointer"
+                    >
+                        Submit Order
+                    </Button>
+                )}
             </div>
 
             {/* TABLE */}

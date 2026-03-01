@@ -2,17 +2,9 @@ import { useEffect, useState, useCallback } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { getSalesOrders } from "@/api/api.ts"
 import type { SalesOrderDto } from "@/model/Sales.ts"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
+import {Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious} from "@/components/ui/pagination.tsx"
 
 export default function SalesPage() {
     const navigate = useNavigate()

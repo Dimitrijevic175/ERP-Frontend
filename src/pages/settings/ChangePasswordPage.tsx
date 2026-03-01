@@ -2,18 +2,18 @@ import { useState } from "react"
 import {
     Card,
     CardContent
-} from "@/components/ui/card"
+} from "@/components/ui/card.tsx"
 import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbList,
     BreadcrumbSeparator,
     BreadcrumbPage,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb.tsx"
 
-import Step1VerifyPassword from "../components/VerifyPassword.tsx"
-import Step2NewPassword from "../components/NewPassword.tsx"
-import Step3Success from "@/components/Success.tsx";
+import Step1VerifyPassword from "../../components/changePassword/VerifyPassword.tsx"
+import Step2NewPassword from "../../components/changePassword/NewPassword.tsx"
+import Step3Success from "@/components/changePassword/Success.tsx";
 
 export default function ChangePasswordPage() {
     const [step, setStep] = useState(1)

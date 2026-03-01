@@ -8,6 +8,8 @@ import type { RoleResponse } from "@/model/User.ts"
 import {AxiosHeaders} from "axios";
 import type {SalesOrderDto} from "@/model/Sales.ts";
 import type {PurchaseOrder} from "@/model/PurchaseOrder.ts";
+import type {SubmitPurchaseOrderRequest} from "@/model/Procurement.ts";
+import type {PurchaseOrderSubmitResponse} from "@/model/Procurement.ts";
 
 // ---> LOGIN <---
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
@@ -112,6 +114,30 @@ export const getPurchaseOrders = async (params: { page: number; size: number }):
 
 export const getPurchaseOrder = async (id: number): Promise<PurchaseOrder> => {
     const response = await procurementApi.get(`/purchase-orders/${id}`)
+    return response.data
+}
+
+export const createPurchaseOrder = async (data: {
+    warehouseId: number
+    supplierId: number
+}) => {
+    const res = await procurementApi.post("/purchase-orders", data)
+    return res.data
+}
+
+export const getSuppliers = async () => {
+    const response = await procurementApi.get(`/suppliers`)
+    return response.data
+}
+
+export const submitPurchaseOrder = async (
+    id: number,
+    payload: SubmitPurchaseOrderRequest
+): Promise<PurchaseOrderSubmitResponse> => {
+    const response = await procurementApi.post<PurchaseOrderSubmitResponse>(
+        `/purchase-orders/${id}/submit`,
+        payload
+    )
     return response.data
 }
 

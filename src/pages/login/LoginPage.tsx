@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react"
-import { login } from "@/api/api"
-import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { login } from "@/api/api.ts"
+import { Button } from "@/components/ui/button.tsx"
+import {Card, CardContent, CardHeader, CardTitle, CardDescription} from "@/components/ui/card.tsx"
+import { Input } from "@/components/ui/input.tsx"
+import { Label } from "@/components/ui/label.tsx"
 import { useNavigate } from "react-router-dom"
 
 export default function Login() {

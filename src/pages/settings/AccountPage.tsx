@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { Label } from "@/components/ui/label.tsx"
+import { Input } from "@/components/ui/input.tsx"
+import { Button } from "@/components/ui/button.tsx"
 import { Edit2 } from "lucide-react"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { getUserById } from "@/api/api"
+import { Alert, AlertDescription } from "@/components/ui/alert.tsx"
+import { getUserById } from "@/api/api.ts"
 
 interface User {
     id: number

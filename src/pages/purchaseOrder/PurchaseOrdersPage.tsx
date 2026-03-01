@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { getPurchaseOrders } from "@/api/api.ts"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
 import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button.tsx"
 
 import type { PurchaseOrder, PurchaseOrderItem } from "@/model/PurchaseOrder.ts"
 import type { PageResponse } from "@/model/Product.ts"
 
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+import {Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious} from "@/components/ui/pagination.tsx"
 
 export default function PurchaseOrdersPage() {
     const [orders, setOrders] = useState<PurchaseOrder[]>([])
@@ -27,7 +20,6 @@ export default function PurchaseOrdersPage() {
     const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
     const [fade, setFade] = useState(false)
-
 
     // Kad se page promeni, update query param
     const updatePageInUrl = (p: number) => {

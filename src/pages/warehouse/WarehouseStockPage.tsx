@@ -1,32 +1,13 @@
 import { useEffect, useState } from "react"
-import {
-    getWarehouseStock,
-    getProductById,
-    getLowStockByWarehouse
-} from "@/api/api"
+import {getWarehouseStock, getProductById, getLowStockByWarehouse} from "@/api/api.ts"
 
-import type { WarehouseStockWithProduct } from "@/model/Warehouse"
+import type { WarehouseStockWithProduct } from "@/model/Warehouse.ts"
 import type { LowStockItemDto } from "@/model/Warehouse.ts"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import {
-    Table,
-    TableHeader,
-    TableBody,
-    TableRow,
-    TableHead,
-    TableCell,
-} from "@/components/ui/table"
-
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import {Table, TableHeader, TableBody, TableRow, TableHead, TableCell} from "@/components/ui/table.tsx"
+import {Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,} from "@/components/ui/pagination.tsx"
 
 interface Props {
     warehouseId: number
@@ -39,7 +20,6 @@ export default function WarehouseStockPage({ warehouseId, warehouseName }: Props
     const [error, setError] = useState<string | null>(null)
     const [lowStockMode, setLowStockMode] = useState(false)
     const [fade, setFade] = useState(false)
-
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(0)
@@ -187,7 +167,6 @@ export default function WarehouseStockPage({ warehouseId, warehouseName }: Props
                                 </Table>
                             </div>
 
-                            {/* Pagination Controls */}
                             {/* Pagination Controls */}
                             {totalPages > 1 && (
                                 <Pagination className="mt-6 justify-center flex cursor-pointer">

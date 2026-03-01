@@ -1,17 +1,10 @@
 import { useEffect, useState, useCallback } from "react"
 import { useParams } from "react-router-dom"
-import {getSalesOrders, getProductById } from "@/api/api"
+import {getSalesOrders, getProductById } from "@/api/api.ts"
 import type {SalesOrderDto, SalesOrderItemDto} from "@/model/Sales.ts";
 import type {ProductResponse} from "@/model/Product.ts";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx"
+import { Badge } from "@/components/ui/badge.tsx"
 
 export default function SalesDetailPage() {
     const { id } = useParams<{ id: string }>()

@@ -1,30 +1,15 @@
 import { useEffect, useState } from "react"
-import { getProducts } from "@/api/api"
+import { getProducts } from "@/api/api.ts"
 
-import type { ProductResponse } from "@/model/Product"
-import type { PageResponse } from "@/model/Product"
+import type { ProductResponse } from "@/model/Product.ts"
+import type { PageResponse } from "@/model/Product.ts"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-    Table,
-    TableHeader,
-    TableBody,
-    TableRow,
-    TableHead,
-    TableCell,
-} from "@/components/ui/table"
-
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { Input } from "@/components/ui/input.tsx"
+import { Label } from "@/components/ui/label.tsx"
+import {Table,TableHeader, TableBody, TableRow, TableHead, TableCell} from "@/components/ui/table.tsx"
+import {Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious} from "@/components/ui/pagination.tsx"
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<ProductResponse[]>([])

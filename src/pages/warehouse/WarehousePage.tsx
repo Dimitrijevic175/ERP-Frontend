@@ -60,9 +60,9 @@
 // }
 
 import { useEffect, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { getAllWarehouses } from "@/api/api"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card.tsx"
+import { Button } from "@/components/ui/button.tsx"
+import { getAllWarehouses } from "@/api/api.ts"
 import type { WarehouseDto } from "@/model/Warehouse.ts";
 import { useNavigate } from "react-router-dom"
 

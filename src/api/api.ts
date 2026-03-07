@@ -141,6 +141,11 @@ export const submitPurchaseOrder = async (
     return response.data
 }
 
+export const receivePurchaseOrder = async (id: number): Promise<string> => {
+    const response = await procurementApi.post<string>(`/purchase-orders/${id}/receive`)
+    return response.data
+}
+
 // ---> INTERCEPTOR <---
 
 const apis = [userApi, productApi, warehouseApi, salesApi, procurementApi];

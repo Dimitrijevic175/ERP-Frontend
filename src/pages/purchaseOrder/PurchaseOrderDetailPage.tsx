@@ -10,15 +10,15 @@ import {
     TableRow,
 } from "@/components/ui/table.tsx"
 import { Badge } from "@/components/ui/badge.tsx"
-import { useParams, useNavigate } from "react-router-dom"
-import {Button} from "@/components/ui/button.tsx";
+import { useParams } from "react-router-dom"
+import OrderActionButton from "@/components/purchaseOrder/OrderActionButton.tsx";
 
 export default function PurchaseOrderDetailPage() {
     const { id } = useParams<{ id: string }>()
     const [order, setOrder] = useState<PurchaseOrder | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-    const navigate = useNavigate()
+
 
     const fetchOrder = useCallback(async () => {
         if (!id) return
@@ -80,16 +80,10 @@ export default function PurchaseOrderDetailPage() {
                 </div>
 
                 {/* DESNI DEO: Submit dugme */}
-                {order.status === "DRAFT" && (
-                    <Button
-                        onClick={() =>
-                            navigate(`/purchase-orders/submit/${order.id}`)
-                        }
-                        className="mt-15 cursor-pointer"
-                    >
-                        Submit Order
-                    </Button>
-                )}
+                <OrderActionButton
+                    order={order}
+                    setOrder={setOrder}
+                />
             </div>
 
             {/* TABLE */}

@@ -40,8 +40,22 @@ export default function AppRoutes() {
             <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/no-access" element={<NoAccessPage />} />
-            <Route path="/purchase-orders/new" element={<CreatePurchaseOrderPage />} />
-            <Route path="/purchase-orders/submit/:id" element={<SubmitPurchaseOrderPage />} />
+            <Route
+                path="/purchase-orders/new"
+                element={
+                    <ProtectedRoute roles={["ADMIN","PROCUREMENT","WAREHOUSE"]}>
+                        <CreatePurchaseOrderPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/purchase-orders/submit/:id"
+                element={
+                    <ProtectedRoute roles={["ADMIN","PROCUREMENT","WAREHOUSE"]}>
+                        <SubmitPurchaseOrderPage />
+                    </ProtectedRoute>
+                }
+            />
         </Routes>
     )
 }

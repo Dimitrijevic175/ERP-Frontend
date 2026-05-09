@@ -11,6 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Ovaj korak kreira .env fajl koristeći secret koji si dodao
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -22,6 +27,7 @@ jobs:
         with:
           context: .
           push: true
+          # Docker će sada videti .env fajl u svom context-u
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/erp-frontend:latest
 
   deploy:
@@ -34,9 +40,9 @@ jobs:
           host: ${{ secrets.AZURE_VM_IP }}
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Obrati pažnju da "script" mora biti u ravni sa "host"
           script: |
             cd ~/erp-frontend
+            # Pull-ujemo novu verziju koja u sebi ima 'ispečene' ispravne URL-ove
             docker compose pull erp-ui
             docker compose up -d erp-ui
             docker image prune -f

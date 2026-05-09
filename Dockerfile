@@ -4,20 +4,19 @@ WORKDIR /app
 
 # Kopiramo fajlove za zavisnosti
 COPY package*.json ./
-# Instaliramo sve zavisnosti (uključujući devDependencies jer nam treba TSC i Vite)
 RUN npm install
 
-# Kopiramo ostatak izvornog koda
+# Kopiramo ostatak koda
 COPY . .
 
-# Pokrećemo build (ovo će izvršiti tsc -b i vite build)
+# Build aplikacije (Vite će automatski pokupiti .env fajl iz root-a)
 RUN npm run build
 
 # Stage 2: Runtime (Nginx)
 FROM nginx:stable-alpine
-# Kopiramo nginx.conf
+# Kopiramo tvoj nginx.conf (osiguraj se da ovaj fajl postoji u folderu!)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Kopiramo build rezultate iz 'dist' foldera u nginx web koren
+# Kopiramo build rezultate iz 'dist' foldera
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
